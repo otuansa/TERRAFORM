@@ -37,6 +37,7 @@ pipeline {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'Learner']]){
                 sh 'terraform apply -auto-approve tfplan'
+                }
             }
         }
     }
