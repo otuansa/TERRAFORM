@@ -22,10 +22,12 @@ pipeline {
 
         stage('Plan Terraform') {
             steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'Learner']]){
                 script {
                     def planResult = sh(script: 'terraform plan -detailed-exitcode -out=tfplan', returnStatus: true)
                     if (planResult != 0 && planResult != 2) {
                         error "Terraform plan failed with exit code ${planResult}"
+                    }
                     }
                 }
             }
